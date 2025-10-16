@@ -1,12 +1,10 @@
 package data_jpa.data_jpa;
 
+import data_jpa.data_jpa.jpa_e1.entities.Product;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
 public class DataJpaApplication {
@@ -15,9 +13,20 @@ public class DataJpaApplication {
 //		SpringApplication.run(DataJpaApplication.class, args);
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("my-persistence-unit");
 		EntityManager em = emf.createEntityManager();
-		em.getTransaction().begin();
-		em.getTransaction().commit();
-		System.out.println("hellod");
+
+		try {
+			em.getTransaction().begin();
+			Product product = new Product();
+
+			product.setId(1L);
+			product.setName("mac");
+
+			em.persist(product);
+			em.getTransaction().commit();
+		} finally {
+			em.close();
+			System.out.println("context closed!");
+		}
 	}
 
 //	@Bean
