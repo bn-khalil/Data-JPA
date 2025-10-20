@@ -59,7 +59,11 @@ public class CustomPersistenceUnitInfo implements PersistenceUnitInfo {
 
     @Override
     public List<String> getManagedClassNames() {
-        return List.of("org.dataJpa.jpa_e1.entities.Product");
+        return List.of(
+                "org.dataJpa.jpa_e1.entities.Product",
+                "org.dataJpa.jpa_e1.entities.Person",
+                "org.dataJpa.jpa_e1.entities.Passport"
+        );
     }
 
     @Override

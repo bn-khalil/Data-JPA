@@ -1,5 +1,7 @@
 package org.dataJpa;
 
+import org.dataJpa.jpa_e1.entities.Passport;
+import org.dataJpa.jpa_e1.entities.Person;
 import org.dataJpa.jpa_e1.entities.Product;
 import org.dataJpa.jpa_e1.persistence.CustomPersistenceUnitInfo;
 import jakarta.persistence.EntityManager;
@@ -25,16 +27,34 @@ public class DataJpaApplication {
 		EntityManager em = emf.createEntityManager();
 		try {
 			em.getTransaction().begin();
-			Product pro1 = new Product();
+/*			Product pro1 = new Product();
 			pro1.setName("mac3");
-//			em.flush();
+			em.flush();
 			Product product = em.find(Product.class, 2);
 			em.merge(pro1);
 			em.flush();
 			System.out.println(product);
 			em.refresh(product);
-			System.out.println(product);
-			System.exit(0);
+			System.out.println(product);*/
+
+
+/*			relationships
+					OneToOne*/
+
+			Person person = new Person();
+			person.setName("bn");
+
+			Passport passport = new Passport();
+			passport.setPassportNumber("BN3212");
+
+			person.setPassport(passport);
+			passport.setPerson(person);
+
+			em.persist(person);
+//			em.persist(passport);
+
+			System.out.println(person);
+
 			em.getTransaction().commit();
 		} finally {
 			em.close();
