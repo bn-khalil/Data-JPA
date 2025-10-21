@@ -1,8 +1,6 @@
 package org.dataJpa;
 
-import org.dataJpa.jpa_e1.entities.Passport;
-import org.dataJpa.jpa_e1.entities.Person;
-import org.dataJpa.jpa_e1.entities.Product;
+import org.dataJpa.jpa_e1.entities.*;
 import org.dataJpa.jpa_e1.persistence.CustomPersistenceUnitInfo;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
@@ -10,6 +8,7 @@ import org.hibernate.jpa.HibernatePersistenceProvider;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Objects;
 
 @SpringBootApplication
@@ -41,7 +40,7 @@ public class DataJpaApplication {
 /*			relationships
 					OneToOne*/
 
-			Person person = new Person();
+/*			Person person = new Person();
 			person.setName("bn");
 
 			Passport passport = new Passport();
@@ -51,9 +50,27 @@ public class DataJpaApplication {
 			passport.setPerson(person);
 
 			em.persist(person);
-//			em.persist(passport);
+			em.persist(passport);
 
-			System.out.println(person);
+			System.out.println(person);*/
+
+			/*			relationships
+					OneToMany && ManyToOne */
+
+			Post post = new Post();
+			post.setContent("jakarta api persistance");
+
+			Comment comment = new Comment();
+			comment.setMessage("very good one!");
+
+			comment.setPost(post);
+			post.setComments(List.of(comment));
+
+			em.persist(post);
+			em.persist(comment);
+
+			System.out.println(post);
+			System.out.println(comment);
 
 			em.getTransaction().commit();
 		} finally {
